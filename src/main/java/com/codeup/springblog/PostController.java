@@ -1,25 +1,40 @@
 package com.codeup.springblog;
 
+import model.Post;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
-    @RequestMapping(path= "/posts", method = RequestMethod.GET)
-    @ResponseBody
-    public String Landing() {
-        return "this is the index page of the posts to my blog!";
+    @GetMapping("/posts")
+    public String posts(Model model) {
+        List<Post> posts = new ArrayList<>();
+        posts.add(new Post("post 1", "post 1 content"));
+        posts.add(new Post("post 2", "post 2 content"));
+        model.addAttribute("posts", posts);
+        return "posts/index";
     }
 
-    @RequestMapping(path= "/posts/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public int postId(@PathVariable int id) { return id; }
+    @GetMapping("/posts/{id}")
+    public String individualPost(@PathVariable int id, Model model) {
+        Post post = new Post("title", "content");
+        model.addAttribute("post", post);
+        return "posts/show";
+    }
 
-    @RequestMapping(path= "/posts/create", method = RequestMethod.GET)
+    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
     @ResponseBody
-    public String createPage() { return "This is the place where you will create a post!"; }
+    public String createPost() {
+        return "view the form for creating a post";
+    }
 
-    @PostMapping(path= "/posts/create")
+    @PostMapping("/posts/create")
     @ResponseBody
-    public String createPost() { return "This is the form you use to post something!"; }
+    public String postCreatePost() {
+        return "create a new post";
+    }
 }
