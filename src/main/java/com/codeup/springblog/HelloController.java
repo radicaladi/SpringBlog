@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 class HelloController {
 
-    @GetMapping("/index/{name}")
+    @GetMapping("/hello/{name}")
     public String sayHello(@PathVariable String name, Model model) {
         model.addAttribute("NameInput", name);
-        return "index";
+        return "hello";
     }
 
 
