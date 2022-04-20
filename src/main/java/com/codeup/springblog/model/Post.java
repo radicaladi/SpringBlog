@@ -3,6 +3,7 @@ package com.codeup.springblog.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name="posts")
 public class Post {
 
     @Id
