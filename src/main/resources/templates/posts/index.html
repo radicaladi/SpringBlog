@@ -11,7 +11,7 @@
 <body>
 <nav th:replace="/partials :: navbar"></nav>
 
-<div class="container fluid">
+<div class="container-fluid">
     <div th:each="post : ${posts}">
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>

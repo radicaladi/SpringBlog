@@ -12,10 +12,13 @@
 <body>
 <nav th:replace="/partials :: navbar"></nav>
 
-<div th:each="post : ${posts}">
-    <h1 th:text="${post.title}"></h1>
-    <p th:text="${post.body}"></p>
+<div class="container-fluid">
+    <div>
+        <h1 th:text="${post.title}"></h1>
+        <p th:text="${post.body}"></p>
+    </div>
 </div>
+
 
 <nav th:replace="/partials :: footer"></nav>
 </body>
