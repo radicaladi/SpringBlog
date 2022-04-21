@@ -1,40 +1,38 @@
 package com.codeup.springblog;
 
 import com.codeup.springblog.model.Post;
+import com.codeup.springblog.model.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class PostController {
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao) { this.postDao = postDao; }
+
     @GetMapping("/posts")
-    public String posts(Model model) {
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post("post 1", "post 1 content"));
-        posts.add(new Post("post 2", "post 2 content"));
-        model.addAttribute("posts", posts);
+    public String index(Model model) {
+        model.addAttribute("posts", postDao.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
-    public String individualPost(@PathVariable int id, Model model) {
-        Post post = new Post("title", "content");
-        model.addAttribute("post", post);
+    public String individualPost(@PathVariable Long id, Model model) {
+        model.addAttribute("posts", postDao.findAllById(id));
         return "posts/show";
     }
 
     @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
-    @ResponseBody
-    public String createPost() {
-        return "view the form for creating a post";
+    public String createPostForm(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
     }
 
-    @PostMapping("/posts/create")
-    @ResponseBody
-    public String postCreatePost() {
-        return "create a new post";
+    @RequestMapping (path= "/posts/create", method = RequestMethod.POST)
+    public String CreatePostView(@ModelAttribute Post post) {
+        postDao.save(post);
+        return "redirect:/posts";
     }
 }
