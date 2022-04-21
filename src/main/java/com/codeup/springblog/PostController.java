@@ -20,7 +20,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String individualPost(@PathVariable long id, Model model){
-        model.addAttribute("post", postDao.findAllById(id));
+        model.addAttribute("post", postDao.findById(id));
         return "posts/show";
     }
 
