@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Single Post</title>
+    <link th:replace="/partials :: bootstrap">
 </head>
 <body>
+<nav th:replace="/partials :: navbar"></nav>
 
+<div th:each="post : ${posts}">
+    <h1 th:text="${post.title}"></h1>
+    <p th:text="${post.description}"></p>
+</div>
+
+<nav th:replace="/partials :: footer"></nav>
 </body>
 </html>
