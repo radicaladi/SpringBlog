@@ -29,6 +29,19 @@ public class PostController {
         return "posts/show";
     }
 
+    @GetMapping("/posts/{id}/edit")
+    public String updatePost(@PathVariable("id") long id, Model model){
+        Post editPost = postDao.findById(id);                     //saving the post id to variable
+        model.addAttribute("post", editPost);       //pass variable to addAttribute
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/edit")
+    public String editPost(@ModelAttribute Post post) {
+        postDao.save(post);                                 //save post in previous post's stead
+        return "redirect:/posts";
+    }
+
     @GetMapping(path = "/posts/create")
     public String createPostForm(Model model) {
         model.addAttribute("newPost", new Post());
