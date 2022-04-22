@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Create Post</title>
@@ -11,12 +11,12 @@
 <div class="container-fluid">
     <h1>Create post</h1>
 
-    <form action="/posts/create" method="post">
-        <label for="title">Title</label><br>
-        <input type="text" name="title" id="title"><br>
-        <label for="body">Body</label><br>
-        <textarea name="body" id="body"></textarea><br>
-        <input type="submit" value="Create Post">
+    <form th:action="@{/posts/create}" th:method="post" th:object="${newPost}">
+        <label >Title</label><br>
+        <input th:field="*{title}"><br>
+        <label >Body</label><br>
+        <textarea th:field="*{body}"></textarea><br>
+        <input type="submit">
     </form>
 </div>
 

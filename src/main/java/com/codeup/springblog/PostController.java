@@ -29,15 +29,15 @@ public class PostController {
         return "posts/show";
     }
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
+    @GetMapping(path = "/posts/create")
     public String createPostForm(Model model) {
-        model.addAttribute("post", new Post());
+        model.addAttribute("newPost", new Post());
         return "posts/create";
     }
 
-    @RequestMapping (path= "/posts/create", method = RequestMethod.POST)
-    public String CreatePostView(@ModelAttribute Post post) {
-        postDao.save(post);
+    @PostMapping (path= "/posts/create")
+    public String CreatePostView(@ModelAttribute Post newPost) {
+        postDao.save(newPost);
         return "redirect:/posts";
     }
 }
