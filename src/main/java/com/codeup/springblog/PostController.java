@@ -2,6 +2,7 @@ package com.codeup.springblog;
 
 import com.codeup.springblog.model.Post;
 import com.codeup.springblog.model.PostRepository;
+import com.codeup.springblog.model.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postDao) { this.postDao = postDao; }
+    public PostController(PostRepository postDao, UserRepository userDao) {
+        this.postDao = postDao;
+        this.userDao = userDao;
+    }
 
     @GetMapping("/posts")
     public String index(Model model) {

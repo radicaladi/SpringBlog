@@ -15,6 +15,7 @@
 <div class="container-fluid">
     <div>
         <h1 th:text="${post.title}"></h1>
+        <h3>Created by: <span th:text="${post.getUser().getEmail()}">user email</span></h3>
         <p th:text="${post.body}"></p>
     </div>
 </div>
