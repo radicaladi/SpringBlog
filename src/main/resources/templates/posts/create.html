@@ -7,14 +7,20 @@
 </head>
 <body>
 <nav th:replace="partials :: navbar"></nav>
-<h1>Create post</h1>
-<form action="/posts/create" method="post">
-    <label for="title">Title</label><br>
-    <input type="text" name="title" id="title"><br>
-    <label for="body">Body</label><br>
-    <textarea name="body" id="body"></textarea><br>
-    <input type="submit" value="Create Post">
-</form>
+
+<div class="container-fluid">
+    <h1>Create post</h1>
+
+    <form action="/posts/create" method="post">
+        <label for="title">Title</label><br>
+        <input type="text" name="title" id="title"><br>
+        <label for="body">Body</label><br>
+        <textarea name="body" id="body"></textarea><br>
+        <input type="submit" value="Create Post">
+    </form>
+</div>
+
+
 <nav th:replace="/partials :: footer"></nav>
 </body>
 </html>
