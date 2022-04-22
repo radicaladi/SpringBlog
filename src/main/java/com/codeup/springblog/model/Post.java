@@ -14,7 +14,7 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
-    @OneToOne
+    @ManyToOne
     private User owner;
 
     public Post(long id, String title, String body) {
