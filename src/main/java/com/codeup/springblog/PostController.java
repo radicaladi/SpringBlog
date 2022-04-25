@@ -3,6 +3,7 @@ package com.codeup.springblog;
 import com.codeup.springblog.model.Post;
 import com.codeup.springblog.model.PostRepository;
 import com.codeup.springblog.model.UserRepository;
+import com.codeup.springblog.serivces.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -50,6 +53,8 @@ public class PostController {
 
     @PostMapping (path= "/posts/create")
     public String CreatePostView(@ModelAttribute Post newPost) {
+        newPost.setUser(userDao.getUserById(1L)); // let's see if 1L works, could've been previous error
+        emailService.prepareAndSend(newPost, "New ad created", "Your new Ad has been created on the Spring AdLister!");
         postDao.save(newPost);
         return "redirect:/posts";
     }
