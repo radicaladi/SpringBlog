@@ -29,7 +29,7 @@ public class PostController {
         return "posts/show";
     }
 
-    @GetMapping("/posts/{id}/edit")
+    @PutMapping("/posts/{id}/edit")
     public String updatePost(@PathVariable("id") long id, Model model){
         Post editPost = postDao.findById(id);                     //saving the post id to variable
         model.addAttribute("post", editPost);       //pass variable to addAttribute
