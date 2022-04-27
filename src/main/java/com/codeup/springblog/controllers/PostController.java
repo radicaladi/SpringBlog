@@ -1,9 +1,11 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.model.Post;
+import com.codeup.springblog.model.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.serivces.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,15 +55,17 @@ public class PostController {
 
     @PostMapping (path= "/posts/create")
     public String CreatePostView(@ModelAttribute Post newPost) {
-        newPost.setUser(userDao.getUserById(1L)); // let's see if 1L works, could've been previous error
+//        newPost.setUser(userDao.getUserById(1L)); // let's see if 1L works, could've been previous error
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        newPost.setUser(user);
         emailService.prepareAndSend(newPost, "New ad created", "Your new Ad has been created on the Spring AdLister!");
         postDao.save(newPost);
         return "redirect:/posts";
     }
 
-//    @PostMapping(path = "/posts/{id}/delete")
-//    public String delete(@PathVariable long id) {
-//        postDao.deleteById(id);
-//        return "redirect:/posts";
-//    }
+    @GetMapping(path= "/posts/{id}/delete")
+    public String deletePost(@ModelAttribute Post post) {
+        postDao.delete(post);                                 //save post in previous post's stead
+        return "redirect:/posts";
+    }
 }

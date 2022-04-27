@@ -7,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Posts</title>
     <link th:replace="/partials :: bootstrap">
+    <style>
+        body {
+            padding-bottom: 3em;
+        }
+    </style>
 </head>
 <body>
 <nav th:replace="/partials :: navbar"></nav>
@@ -23,7 +28,8 @@
     <div th:each="post : ${posts}">
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
-        &nbsp;<span><a th:href="@{/posts/{id}/edit(id=${post.id},action='show_all')}"><sup>edit</sup></a></span>
+        &nbsp;<span><a th:href="@{/posts/{id}/edit(id=${post.id},action='show_all')}"><sup>edit</sup></a></span>&nbsp;
+         <span><a th:href="@{/posts/{id}/delete(id=${post.id},action='show_all')}"><sup>delete</sup></a></span>
     </div>
 </div>
 
